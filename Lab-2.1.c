@@ -1,64 +1,58 @@
 #include <stdio.h>
-#include <stdbool.h>
-const int n = 10;
-int A[10][10] = {
-    { 5, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
-    { 0, 5, 0, 0, 0, 0, 0, 0, 0, 0 },
-    { 0, 0, 4, 0, 0, 0, 0, 0, 0, 0 },
-    { 0, 0, 0, 4, 0, 0, 0, 0, 0, 0 },
-    { 0, 0, 0, 0, 3, 0, 0, 0, 0, 0 },
-    { 0, 0, 0, 0, 0, 3, 0, 0, 0, 0 },
-    { 0, 0, 0, 0, 0, 0, 2, 0, 0, 0 },
-    { 0, 0, 0, 0, 0, 0, 0, 2, 0, 0 },
-    { 0, 0, 0, 0, 0, 0, 0, 0, 1, 0 },
-    { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 } };
 
-void BiSearch(int answer)
+#define K 10
+int A[K][K] = {
+	{ 5, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+	{ 0, 5, 0, 0, 0, 0, 0, 0, 0, 0 },
+	{ 0, 0, 4, 0, 0, 0, 0, 0, 0, 0 },
+	{ 0, 0, 0, 4, 0, 0, 0, 0, 0, 0 },
+	{ 0, 0, 0, 0, 3, 0, 0, 0, 0, 0 },
+	{ 0, 0, 0, 0, 0, 3, 0, 0, 0, 0 },
+	{ 0, 0, 0, 0, 0, 0, 2, 0, 0, 0 },
+	{ 0, 0, 0, 0, 0, 0, 0, 2, 0, 0 },
+	{ 0, 0, 0, 0, 0, 0, 0, 0, 1, 0 },
+	{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 } };
+
+void BiSearch()
 {
-    int count = 0;
-    bool Flag = true;
-    while (Flag)
-    {
-        if (answer == A[count][count])
-        {
-            printf_s("This number located at index:( %d , %d )\n", count, count);
-            count += 1;
-            Flag = false;
-        }
-        else if (answer < A[count][count])
-            count += 1;
-        else if (answer > A[count][count])
-            count += 1;
-
-    }
-    if (Flag == true) {
-        printf("This number doesn't exist\n");
-    }
+	int low = 0;
+	int high = K;
+	int coords;
+	int count = 0;
+	while (low < high)
+	{
+		int mid = (high + low) / 2;
+		coords = mid;
+		if (A[mid][mid] >= 0 && A[mid][mid] <= 5)
+		{
+			high = mid;
+			count += 1;
+		}
+		else if (5 < A[mid][mid])
+			low = mid + 1;
+		else if (0 > A[mid][mid])
+			high = mid - 1;
+	}
+	if (count != 0) {
+		printf_s("\nThis number located at index:( %d , %d )\n", high, high);
+	}
+	else {
+		printf_s("This number doesnt exist in matrix");
+	}
 }
 
 void print(int A[][10], int N, int M)
 {
-    for (int R = 0; R < N; R++) {
-        for (int C = 0; C < M; C++)
-            printf_s("%d", A[R][C]);
-        printf_s("\n");
-    }
+	for (int R = 0; R < N; R++) {
+		for (int C = 0; C < M; C++)
+			printf_s("%d", A[R][C]);
+		printf_s("\n");
+	}
 }
 
 int main()
 {
-    print(A, n, n);
-    int answer;
-    printf("\nPlease input number\n\n");
-    scanf_s("%d", &answer);
-    if (answer < 0 || answer > 5)
-    {
-        printf("Sorry but your number doesnt exist in array\n");
-        return 0;
-    }
-    else
-    {
-        BiSearch(answer);
-        return 1;
-    }
+	print(A, K, K);
+	BiSearch();
+	return 1;
 }
