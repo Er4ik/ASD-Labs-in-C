@@ -42,18 +42,18 @@ void print_list(myArr* head, int iter) {
     }
 }
 
-myArr* deletehead(myArr* root)
+myArr* delElem(myArr* elem)
 {
-    myArr* temp;
-    temp = root->next;
-    free(root);
-    return temp;
+    myArr* pCount;
+    pCount = elem->next;
+    free(elem);
+    return pCount;
 }
 
-void  FreeMemory(myArr* lst)
+void  FreeMemory(myArr* pArr)
 {
-    lst = deletehead(lst);
-    if (lst != NULL) FreeMemory(lst);
+    pArr = delElem(pArr);
+    if (pArr != NULL) FreeMemory(pArr);
 }
 
 int main() {
@@ -88,6 +88,7 @@ int main() {
     }
 
     print_list(head, iterNum);
+
 
     FreeMemory(head);
 
