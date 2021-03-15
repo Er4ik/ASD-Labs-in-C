@@ -8,28 +8,11 @@ typedef struct arr {
 
 myArr* Clone(myArr* list) {
     if (list == NULL) return NULL;
-
     myArr* result = malloc(sizeof(myArr));
     result->val = list->val;
     result->next = Clone(list->next);
     return result;
 }
-
-void print_list(myArr* head, int iter) {
-    myArr* current = head;
-    int counter = 0;
-    int counter1 = iter;
-    while (counter < iter) {
-        printf_s("Key %d - %d\n", ++counter, current->val);
-        myArr* current1 = Clone(current);
-        for (int i = 0; i<iter; i++){
-            current1 = current1->next;
-        }
-        printf_s("Key %d - %d\n", ++counter1, current1->val);
-        current = current->next;
-    }
-}
-
 
 void push(myArr* head, int val) {
 
@@ -44,9 +27,38 @@ void push(myArr* head, int val) {
     current->next->next = NULL;
 }
 
+void print_list(myArr* head, int iter) {
+    myArr* current = head;
+    int counter = 0;
+    int counter1 = iter;
+    while (counter < iter) {
+        printf_s("Key %d - %d\n", ++counter, current->val);
+        myArr* current1 = Clone(current);
+        for (int i = 0; i < iter; i++) {
+            current1 = current1->next;
+        }
+        printf_s("Key %d - %d\n", ++counter1, current1->val);
+        current = current->next;
+    }
+}
+
+myArr* deletehead(myArr* root)
+{
+    myArr* temp;
+    temp = root->next;
+    free(root);
+    return temp;
+}
+
+void  FreeMemory(myArr* lst)
+{
+    lst = deletehead(lst);
+    if (lst != NULL) FreeMemory(lst);
+}
+
 int main() {
 
-    myArr *head = NULL;
+    myArr* head = NULL;
     head = malloc(sizeof(myArr));
 
     if (head == NULL) {
@@ -67,7 +79,7 @@ int main() {
     head->next = NULL;
 
     int counter = 1;
-    while (counter < iterNum*2) {
+    while (counter < iterNum * 2) {
         int num;
         printf("Add some number: ");
         scanf_s("%d", &num);
@@ -77,6 +89,7 @@ int main() {
 
     print_list(head, iterNum);
 
-    return 0;
+    FreeMemory(head);
 
+    return 0;
 }
