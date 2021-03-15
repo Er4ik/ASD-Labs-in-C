@@ -42,16 +42,14 @@ void print_list(myArr* head, int iter) {
     }
 }
 
-myArr* delElem(myArr* elem)
-{
+myArr* delElem(myArr* elem) {
     myArr* pCount;
     pCount = elem->next;
     free(elem);
     return pCount;
 }
 
-void  FreeMemory(myArr* pArr)
-{
+void  FreeMemory(myArr* pArr) {
     pArr = delElem(pArr);
     if (pArr != NULL) FreeMemory(pArr);
 }
@@ -69,11 +67,18 @@ int main() {
     printf("Add integer number: ");
     scanf_s("%d", &iterNum);
 
+    if(iterNum < 1) {
+        printf("Add correct natural number: ");
+        scanf_s("%d", &iterNum);
+        while (iterNum < 1) {
+            printf("Add correct natural number: ");
+            scanf_s("%d", &iterNum);
+        }
+    }
 
     int number;
     printf("\nAdd some number: ");
     scanf_s("%d", &number);
-
 
     head->val = number;
     head->next = NULL;
@@ -88,7 +93,6 @@ int main() {
     }
 
     print_list(head, iterNum);
-
 
     FreeMemory(head);
 
