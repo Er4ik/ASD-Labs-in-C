@@ -15,29 +15,39 @@ myArr* Clone(myArr* list) {
 }
 
 void push(myArr* head, int val) {
-
     myArr* current = head;
-
     while (current->next != NULL) {
         current = current->next;
     }
-
     current->next = malloc(sizeof(myArr));
     current->next->val = val;
     current->next->next = NULL;
 }
 
-void print_list(myArr* head, int iter) {
+int calculateArr(myArr* head) {
     myArr* current = head;
     int counter = 0;
-    int counter1 = iter;
-    while (counter < iter) {
-        printf_s("Key %d - %d\n", ++counter, current->val);
-        myArr* current1 = Clone(current);
-        for (int i = 0; i < iter; i++) {
-            current1 = current1->next;
-        }
-        printf_s("Key %d - %d\n", ++counter1, current1->val);
+    while (current != NULL) {
+        printf_s("Pointer - %d Value - %d\n", current, current->val);
+        current = current->next;
+        counter++;
+    }
+    return counter;
+}
+
+void printSomeElemArr(myArr *current, int counter) {
+    for (int i = 0; i < counter; i++) {
+        current = current->next;
+    }
+    printf_s("Pointer - %d Value - %d\n", current, current->val);
+}
+
+void printArr(myArr* head, int counter) {
+    myArr* current = head;
+    printf("\n");
+    for (int i = 0; i < counter; i++) {
+        printf_s("Pointer - %d Value - %d\n", current, current->val);
+        printSomeElemArr(current, counter);
         current = current->next;
     }
 }
@@ -92,7 +102,8 @@ int main() {
         counter++;
     }
 
-    print_list(head, iterNum);
+    int count = calculateArr(head);
+    printArr(head, count / 2);
 
     FreeMemory(head);
 
