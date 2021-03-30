@@ -108,7 +108,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT messg, WPARAM wParam, LPARAM lParam)
         int yPos[12];
         int startCoordx = 20;
         int startCoordy = 560;
-        char* ellipseName[12] = { "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "a", "b" };
+        char* ellipseName[14] = { "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "a", "b" };
 
         int R = 250;
         int step = 0;
@@ -241,9 +241,9 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT messg, WPARAM wParam, LPARAM lParam)
     }
     return 0;
 }
-/*
+
 //MATRIX GENERATION
-int** randmatrix(float k) {
+int** randMatrix(float k) {
     srand(0520);
     int matrix[N][N];
     float num;
@@ -260,8 +260,10 @@ int** randmatrix(float k) {
     }
     return matrix;
 }
-int main() {
-    int** A = randmatrix(1.0 - 0 * 0.02 - 4 * 0.005 - 0.25);
+
+int main()
+{
+    float koef = (1.0 - 2 * 0.02 - 0 * 0.005 - 0.25);
+    randMatrix(koef);
     return 0;
 }
-*/
