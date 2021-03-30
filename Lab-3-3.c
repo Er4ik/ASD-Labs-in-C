@@ -212,19 +212,6 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT messg, WPARAM wParam, LPARAM lParam)
                         LineTo(hdc, xPos1[end], yPos1[end]);
                         divine1 = -divine1;
                     }
-                    else {
-                        MoveToEx(hdc, xPos1[start], yPos1[start], NULL);
-                        if (yDif1 == 0 && abs(xDif1) > 300 && end <= 3) {
-                            dx1 = xDif1 / 2 / koef1;
-                            dy1 = (yDif1 - 35) / koef1;
-                        }
-                        else if (abs(xDif1) == 300 && abs(yDif1) == 300 && (end == 0 || end == 3)) {
-                            LineTo(hdc, xPos1[end], yPos1[end]);
-                            dx1 = xDif1 / 2 / koef1;
-                            dy1 = yDif1 / koef;
-                        }
-                        LineTo(hdc, xPos1[end], yPos1[end]);
-                    }
                 }
             }
         }
