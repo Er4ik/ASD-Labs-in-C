@@ -7,36 +7,7 @@
 
 LRESULT CALLBACK WndProc(HWND, UINT, WPARAM, LPARAM);
 
-wchar_t  ProgName[] = L"Лабораторна робота 3";
-int A[N][N] = {
-        {0, 0, 1, 1, 0, 0, 0, 1, 0, 1, 0, 0},
-        {0, 0, 0, 0, 0, 1, 1, 0, 1, 1, 0, 1},
-        {0, 0, 0, 0, 1, 0, 1, 1, 1, 0, 0, 0},
-        {1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0},
-        {0, 1, 1, 1, 0, 1, 0, 1, 0, 0, 0, 0},
-        {0, 0, 0, 0, 0, 1, 1, 1, 0, 1, 0, 0},
-        {0, 0, 1, 0, 1, 0, 1, 0, 1, 0, 0, 0},
-        {1, 0, 0, 1, 1, 0, 1, 1, 1, 1, 0, 0},
-        {1, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1},
-        {0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-        {1, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0},
-        {0, 0, 0, 0, 1, 1, 0, 1, 0, 0, 0, 1},
-};
-
-int B[N][N] = {
-        {0, 0, 1, 1, 0, 0, 0, 1, 1, 1, 1, 0},
-        {0, 0, 0, 0, 1, 1, 1, 0, 1, 1, 1, 1},
-        {1, 0, 0, 0, 1, 0, 1, 1, 1, 1, 0, 0},
-        {1, 0, 0, 0, 1, 1, 0, 1, 0, 0, 0, 0},
-        {0, 1, 1, 1, 0, 1, 1, 1, 0, 0, 0, 1},
-        {0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
-        {0, 1, 1, 0, 1, 1, 1, 1, 1, 0, 0, 0},
-        {1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 0, 1},
-        {1, 1, 1, 0, 0, 1, 1, 1, 0, 1, 0, 1},
-        {1, 1, 1, 0, 0, 1, 0, 1, 1, 0, 0, 0},
-        {1, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0},
-        {0, 0, 1, 0, 1, 1, 0, 1, 1, 0, 0, 1},
-};
+wchar_t  ProgName[] = L"Лабораторна робота 4";
 
 
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpszCmdLine, int nCmdShow)
@@ -60,7 +31,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpszCmdLi
         return 0;
 
     hWnd = CreateWindow(ProgName,
-        L"LAB 3. Osmanov Ervin",
+        L"LAB 4. Osmanov Ervin",
         WS_OVERLAPPEDWINDOW,
         100,
         100,
@@ -112,6 +83,17 @@ void mulmr(int* matrix[N][N], float k) {
             if (num < 1) element = 0;
             else element = 1;
             matrix[i][j] = element;
+        }
+    }
+}
+
+void simMatrix(int A[N][N], int* B[N][N]) {
+    for (int i = 0; i < N; i++) {
+        for (int j = 0; j < N; j++) {
+            if (A[i][j] == 1) {
+                B[j][i] = 1;
+                B[i][j] = 1;
+            }
         }
     }
 }
@@ -347,6 +329,8 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT messg, WPARAM wParam, LPARAM lParam)
     switch (messg) {
     case WM_PAINT:
         hdc = BeginPaint(hWnd, &ps);
+        int A[N][N];
+        int B[N][N];
         int xPos[12];
         int yPos[12];
         int startCoordx = 20;
@@ -384,10 +368,12 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT messg, WPARAM wParam, LPARAM lParam)
         SelectObject(hdc, BlackPen);
 
         mulmr(A, (1.0 - 2 * 0.005 - 0 * 0.005 - 0.27));
-        //printEdge(A, hdc, 680, 1);//sub-pow-nodes
+        simMatrix(A, B);
+        printEdge(A, hdc, 680, 1);//sub-pow-nodes
         powMatrix(hdc, A, A, diagonalA, N - 1);
 
         /*mulmr(A, (1.0 - 2 * 0.01 - 0 * 0.01 - 0.3));
+        simMatrix(A, B);
         printEdge(A, hdc, 680,1);
         printEdge(B, hdc, 10,0);*/
 
